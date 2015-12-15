@@ -3,12 +3,12 @@ set nocompatible
 " allow backspacing over everything in insert mode
 set backspace=indent,eol,start
 set number
-set shiftwidth=4 "Éè¶¨tab³¤¶È
-set softtabstop=4 "Éè¶¨ÍË¸ñ¼üÉ¾³ı¿Õ¸ñÊı
-set tabstop=4 "Éè¶¨tab³¤¶È
-set nowrapscan "½ûÖ¹ËÑË÷µ½Á½¶ËÊ±ÖØĞÂËÑË÷
-set ignorecase smartcase "ËÑË÷Ê±ºöÂÔ´óĞ¡Ğ´ µ«ÓĞ´óĞ´×ÖÄ¸Ê±ËÑË÷¶Ô´óĞ¡Ğ´Ãô¸Ğ
-set incsearch "Ò»±ßÊäÈëÒ»±ßËÑË÷
+set shiftwidth=4 "è®¾å®štabé•¿åº¦
+set softtabstop=4 "è®¾å®šé€€æ ¼é”®åˆ é™¤ç©ºæ ¼æ•°
+set tabstop=4 "è®¾å®štabé•¿åº¦
+set nowrapscan "ç¦æ­¢æœç´¢åˆ°ä¸¤ç«¯æ—¶é‡æ–°æœç´¢
+set ignorecase smartcase "æœç´¢æ—¶å¿½ç•¥å¤§å°å†™ ä½†æœ‰å¤§å†™å­—æ¯æ—¶æœç´¢å¯¹å¤§å°å†™æ•æ„Ÿ
+set incsearch "ä¸€è¾¹è¾“å…¥ä¸€è¾¹æœç´¢
 set hlsearch 
 set mouse=a
 set history=999
@@ -23,6 +23,7 @@ set hidden
 set nobackup
 set nowritebackup
 set noswapfile
+set clipboard=unnamed
 
 set path+=/usr/include/c++/4.8,
 set path+=~
@@ -31,11 +32,10 @@ let mapleader = ","
 
 
 noremap <silent> <F2> :set syntax=cpp<CR>
-noremap <silent> <F4> :w<CR>:make<CR><CR><CR>
-noremap <silent> <F5> :!./a.out<CR>
 noremap <silent> <F9> :copen<CR>
 noremap <silent> <F10> :cclose<CR>
 
+noremap  <silent> <C-q> :qall<CR>
 noremap  <silent> <C-x> :wall<CR>:qall<CR>
 noremap <silent> <leader>w :wall<CR>
 noremap <silent> <leader>c :close<CR>
@@ -50,7 +50,7 @@ noremap <silent> <leader>o o<ESC>
 noremap <silent> <leader>q :q<CR>
 noremap <silent> <leader>s :source ~/.vimrc<CR>
 
-"×Ô¶¯²¹È«À¨ºÅ
+"è‡ªåŠ¨è¡¥å…¨æ‹¬å·
 inoremap ( ()<ESC>i
 inoremap ) <c-r>=ClosePair(')')<CR>
 inoremap [ []<ESC>i
@@ -75,10 +75,21 @@ return ""
 endif
 endf  
 
+"ç¼–è¯‘
+func! Compilecpp()
+	exec "w"
+	let compilecmd = "!clang++-3.6 "
+	let compileflag = " -g -stdlib=libc++ -std=c++11 -I/usr/local/include/c++/v1 -lc++abi " 
+	let compileobj = " % -o %< "
+	exec compilecmd. compileflag. compileobj
+endfunc
+
+map <F4> :call Compilecpp()<cr>
+map <F5> :! ./%<<CR>
 filetype on
 filetype plugin on
 filetype indent on
 
-"ÉèÖÃ±àÂë
-set fileencoding=gb18030 
+"è®¾ç½®ç¼–ç 
+set fileencoding=utf-8 
 set fileencodings=utf-8,gb18030,utf-16,big5 
