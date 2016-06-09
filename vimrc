@@ -23,11 +23,11 @@ set hidden
 set nobackup
 set nowritebackup
 set noswapfile
-set clipboard=unnamed
 
 set path+=/usr/include/c++/4.8,
 set path+=~
 set path+=$VIMRUNTIME
+set clipboard=unnamedplus
 let mapleader = ","
 
 
