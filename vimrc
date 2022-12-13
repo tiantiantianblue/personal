@@ -75,17 +75,6 @@ return ""
 endif
 endf  
 
-"编译
-func! Compilecpp()
-	exec "w"
-	let compilecmd = "!clang++-3.6 "
-	let compileflag = " -g -stdlib=libc++ -std=c++11 -I/usr/local/include/c++/v1 -lc++abi " 
-	let compileobj = " % -o %< "
-	exec compilecmd. compileflag. compileobj
-endfunc
-
-map <F4> :call Compilecpp()<cr>
-map <F5> :! ./%<<CR>
 filetype on
 filetype plugin on
 filetype indent on
